@@ -1,0 +1,106 @@
+<div class="h-full space-y-6">
+  
+  <!-- Header Dashboard -->
+  <div>
+    <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Performance Dashboard</h1>
+    <p class="text-sm text-slate-500">Statistik penjualan dan stok apotik real-time</p>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col">
+       <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Sales</span>
+       <h2 class="text-2xl font-black text-slate-800 mt-2">Rp 128.5M</h2>
+       <span class="text-[10px] text-emerald-500 font-bold mt-1">▲ 12.5% vs last month</span>
+    </div>
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col">
+       <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Active Pharmacists</span>
+       <h2 class="text-2xl font-black text-slate-800 mt-2">12 Person</h2>
+       <span class="text-[10px] text-slate-400 font-bold mt-1">On duty right now</span>
+    </div>
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col">
+       <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Low Stock Items</span>
+       <h2 class="text-2xl font-black text-red-500 mt-2">24 Items</h2>
+       <span class="text-[10px] text-red-400 font-bold mt-1">Action required immediately</span>
+    </div>
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col">
+       <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">New Customers</span>
+       <h2 class="text-2xl font-black text-slate-800 mt-2">+430</h2>
+       <span class="text-[10px] text-emerald-500 font-bold mt-1">▲ 8% from last week</span>
+    </div>
+  </div>
+
+  <!-- Charts Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-8">
+    
+    <!-- 1. Trend Penjualan (Line) -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col h-[350px]">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="font-bold text-slate-700">Tren Penjualan (7 Hari Terakhir)</h3>
+        <select class="text-xs bg-slate-50 border-none rounded-lg px-2 py-1 outline-none text-slate-500">
+          <option>Weekly View</option>
+          <option>Monthly View</option>
+        </select>
+      </div>
+      <div class="flex-1 min-h-0">
+        <canvas baseChart
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [type]="'line'">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- 2. Top Rank (Bar) -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col h-[350px]">
+      <div class="mb-6">
+        <h3 class="font-bold text-slate-700">Top 5 Best Selling Products</h3>
+        <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Berdasarkan Volume Penjualan</p>
+      </div>
+      <div class="flex-1 min-h-0">
+        <canvas baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [type]="'bar'">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- 3. Sales by Categories (Doughnut) -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col h-[350px]">
+      <div class="mb-6 text-center">
+        <h3 class="font-bold text-slate-700">Proporsi Kategori Produk</h3>
+      </div>
+      <div class="flex-1 min-h-0 relative">
+        <canvas baseChart
+          [data]="doughnutChartData"
+          [options]="doughnutChartOptions"
+          [type]="'doughnut'">
+        </canvas>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none mt-6">
+           <div class="text-center">
+             <span class="block text-2xl font-black text-slate-800">1.2K</span>
+             <span class="text-[10px] text-slate-400 font-bold border-t pt-1">Total Unit</span>
+           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Kondisi Stok (Polar Area) -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col h-[350px]">
+      <div class="mb-6">
+        <h3 class="font-bold text-slate-700">Kesehatan Inventaris</h3>
+        <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Analisis Kondisi Stok Gudang</p>
+      </div>
+      <div class="flex-1 min-h-0">
+        <canvas baseChart
+          [data]="polarChartData"
+          [options]="polarChartOptions"
+          [type]="'polarArea'">
+        </canvas>
+      </div>
+    </div>
+
+  </div>
+
+</div>

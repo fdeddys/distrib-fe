@@ -1,0 +1,63 @@
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex z-10 shadow-sm h-full overflow-hidden">
+  <!-- Brand -->
+  <div class="h-16 flex items-center px-6 border-b border-slate-200 shrink-0">
+    <div class="h-8 w-8 bg-apotik-main rounded-lg flex items-center justify-center text-white font-bold mr-3 shadow-md shadow-apotik-main/20">
+      +
+    </div>
+    <span class="font-bold text-lg text-slate-800 tracking-tight">Apotik System</span>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 overflow-y-auto py-4">
+    <div class="px-3 space-y-1">
+      
+      <!-- Loop Level 1 -->
+      <div *ngFor="let item of menuItems">
+        
+        <!-- Menu Tanpa SubMenu -->
+        <a *ngIf="!item.subMenus" 
+           [routerLink]="item.route" 
+           routerLinkActive="bg-apotik-main/10 text-apotik-main font-semibold"
+           [routerLinkActiveOptions]="{exact: true}"
+           class="flex items-center px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">
+          <span class="w-5 h-5 mr-3 flex items-center justify-center">
+             <!-- Icon Placeholder based on item.icon -->
+             <i class="w-2 h-2 rounded-full bg-slate-300" *ngIf="item.icon === 'dot'"></i>
+             <svg *ngIf="item.icon === 'dashboard'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          </span>
+          <span class="text-sm">{{ item.name }}</span>
+        </a>
+
+        <!-- Menu Dengan SubMenu -->
+        <div *ngIf="item.subMenus">
+          <button (click)="toggleMenu(item)"
+                  class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">
+            <div class="flex items-center">
+              <span class="w-5 h-5 mr-3 flex items-center justify-center text-slate-400">
+                <svg *ngIf="item.icon === 'database'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 2 3 6 3s6-1 6-3V7M4 7c0 2 2 3 6 3s6-1 6-3M4 7c0-2 2-3 6-3s6 1 6 3m0 5c0 2-2 3-6 3s-6-1-6-3"></path></svg>
+                <svg *ngIf="item.icon === 'shopping-cart'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                <svg *ngIf="item.icon === 'bar-chart'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                <svg *ngIf="item.icon === 'settings'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              </span>
+              <span class="text-sm font-medium">{{ item.name }}</span>
+            </div>
+            <svg class="w-4 h-4 transform transition-transform duration-200" 
+                 [class.rotate-180]="item.isOpen"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+
+          <!-- Loop Level 2 (SubMenu) -->
+          <div *ngIf="item.isOpen" class="mt-1 ml-4 pl-4 border-l border-slate-100 space-y-1 overflow-hidden transition-all duration-300">
+            <a *ngFor="let sub of item.subMenus"
+               [routerLink]="sub.route"
+               routerLinkActive="text-apotik-main font-semibold bg-blue-50/50"
+               class="flex items-center px-3 py-2 rounded-lg text-slate-500 hover:text-apotik-main hover:bg-slate-50 transition-colors text-xs">
+              {{ sub.name }}
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+</aside>

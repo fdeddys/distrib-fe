@@ -1,0 +1,67 @@
+<div class="h-full space-y-6">
+  <div>
+    <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Access Matrix</h1>
+    <p class="text-sm text-slate-500">Tentukan menu mana saja yang dapat diakses oleh setiap Role</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+    
+    <!-- Role Selector -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-4">
+      <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Pilih Role User</label>
+      <div class="flex flex-col gap-2">
+        <button *ngFor="let r of roles" 
+                (click)="selectedRole = r; onRoleChange()"
+                [class]="selectedRole === r ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'"
+                class="px-5 py-4 rounded-2xl text-sm font-bold transition-all text-left flex items-center justify-between">
+          {{ r }}
+          <svg *ngIf="selectedRole === r" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </button>
+      </div>
+      
+      <div class="pt-6">
+        <button (click)="save()" class="w-full py-4 bg-emerald-500 text-white rounded-2xl font-black text-xs tracking-widest shadow-lg shadow-emerald-100 hover:bg-emerald-600 transition-all uppercase">
+          Simpan Konfigurasi
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu Checkbox List -->
+    <div class="lg:col-span-2 bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+      <div class="p-6 border-b border-slate-50 bg-slate-50/50 flex justify-between items-center">
+        <h3 class="font-bold text-slate-700">Daftar Menu Tersedia (Role: {{ selectedRole }})</h3>
+        <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-md uppercase tracking-wider">
+           {{ selectedMenus.length }} Menu Aktif
+        </span>
+      </div>
+
+      <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Group by Category (Looping and filtering in template for simplicity) -->
+        <div *ngFor="let group of ['Dashboard', 'Master', 'Transaksi', 'Report', 'Utility']" class="space-y-4">
+          <h4 class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100 pb-2">
+            {{ group }}
+          </h4>
+          
+          <div class="flex flex-col gap-3">
+             <ng-container *ngFor="let m of menus">
+               <div *ngIf="(m.parent === group) || (!m.parent && group === 'Dashboard')" 
+                    (click)="toggleMenu(m.code)"
+                    class="flex items-center gap-3 cursor-pointer group">
+                 <div [class]="isMenuSelected(m.code) ? 'bg-indigo-600 border-indigo-600' : 'bg-white border-slate-200'"
+                      class="w-5 h-5 border-2 rounded-md transition-all flex items-center justify-center">
+                   <svg *ngIf="isMenuSelected(m.code)" class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                 </div>
+                 <span [class]="isMenuSelected(m.code) ? 'text-indigo-600 font-bold' : 'text-slate-500'" class="text-sm transition-all group-hover:text-indigo-400">
+                   {{ m.name }}
+                 </span>
+               </div>
+             </ng-container>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

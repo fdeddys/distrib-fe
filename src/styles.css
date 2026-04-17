@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'tailwindcss';
+
+@theme {
+  --color-apotik-main: #0ea5e9; /* Sky 500 */
+  --color-apotik-accent: #10b981; /* Emerald 500 */
+  --color-apotik-dark: #0f172a; /* Slate 900 */
+  --color-apotik-light: #f8fafc; /* Slate 50 */
+}

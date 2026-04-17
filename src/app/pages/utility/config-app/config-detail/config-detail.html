@@ -1,0 +1,65 @@
+<div class="h-full space-y-4">
+  <div class="flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-800 tracking-tight">{{ typeName }}</h1>
+      <p class="text-sm text-slate-500">Kelola master data untuk {{ typeName }}</p>
+    </div>
+    <div class="flex gap-2">
+      <button (click)="onBack()" class="px-4 py-2 border border-slate-200 text-slate-600 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-all">Back</button>
+      <button *ngIf="!isFormOpen" (click)="onNew()" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-100">+ Add New</button>
+    </div>
+  </div>
+
+  <!-- Dynamic Form -->
+  <div *ngIf="isFormOpen" class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100 max-w-xl mx-auto w-full animate-fade-in">
+    <h3 class="text-lg font-bold text-slate-800 mb-6">{{ currentItem.id ? 'Edit' : 'Tambah' }} {{ typeName }}</h3>
+    <div class="space-y-5">
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Code</label>
+        <input type="text" [(ngModel)]="currentItem.code" placeholder="Unique code..." class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-mono">
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Name / Value</label>
+        <input type="text" [(ngModel)]="currentItem.name" placeholder="Display name..." class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all">
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Keterangan (Optional)</label>
+        <textarea [(ngModel)]="currentItem.description" placeholder="Optional description..." rows="2" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all"></textarea>
+      </div>
+      <div class="pt-6 flex gap-2">
+        <button (click)="onSave()" class="flex-1 py-3.5 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all">Simpan Data</button>
+        <button (click)="isFormOpen = false" class="px-8 py-3.5 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic List -->
+  <div *ngIf="!isFormOpen" class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden animate-fade-in">
+     <table class="w-full text-left">
+      <thead class="bg-slate-50 border-b border-slate-100">
+        <tr class="text-xs font-bold text-slate-400 uppercase tracking-widest">
+          <th class="px-8 py-4">Code</th>
+          <th class="px-8 py-4">Name</th>
+          <th class="px-8 py-4">Description</th>
+          <th class="px-8 py-4 text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-50">
+        <tr *ngFor="let item of items" class="hover:bg-slate-50/50 transition-all">
+          <td class="px-8 py-4 text-xs font-mono font-bold text-indigo-600">{{ item.code }}</td>
+          <td class="px-8 py-4 text-sm font-semibold text-slate-700">{{ item.name }}</td>
+          <td class="px-8 py-4 text-sm text-slate-500">{{ item.description || '-' }}</td>
+          <td class="px-8 py-4 text-center">
+             <div class="flex justify-center gap-2">
+               <button (click)="onEdit(item)" class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
+               <button (click)="onDelete(item.id)" class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+             </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="items.length === 0" class="p-20 text-center">
+      <p class="text-slate-400 italic">Belum ada data untuk kategori ini.</p>
+    </div>
+  </div>
+</div>

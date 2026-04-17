@@ -1,0 +1,112 @@
+<div class="h-full space-y-4">
+  <div class="flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-800 tracking-tight">{{ isEdit ? 'Edit Produk Retail' : 'Tambah Produk Baru' }}</h1>
+      <p class="text-sm text-slate-500">Kelola informasi detail barang dagangan dalam satu panel</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <button (click)="onBack()" class="px-5 py-2.5 border border-slate-200 text-slate-600 rounded-2xl text-sm font-bold hover:bg-slate-50 transition-all">
+        Batal
+      </button>
+      <button (click)="onSave()" class="px-8 py-2.5 bg-indigo-600 text-white rounded-2xl text-sm font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all">
+        Simpan Produk
+      </button>
+    </div>
+  </div>
+
+  <!-- Single Card Concept -->
+  <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100 max-w-5xl mx-auto w-full">
+    <div class="grid grid-cols-12 gap-x-8 gap-y-6">
+      
+      <!-- Basic Info Section -->
+      <div class="col-span-12 grid grid-cols-2 gap-6">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Product Code</label>
+          <input type="text" [(ngModel)]="currentProduct.code" placeholder="PRD-XXXX"
+                 class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-mono font-bold">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Group Product</label>
+          <select [(ngModel)]="currentProduct.category"
+                  class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all appearance-none cursor-pointer">
+            <option value="">Pilih Group...</option>
+            <option *ngFor="let cat of categoryOptions" [value]="cat.code">{{ cat.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-span-12 flex flex-col gap-1.5">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Product Name</label>
+        <input type="text" [(ngModel)]="currentProduct.name" placeholder="Nama lengkap barang..."
+               class="w-full px-5 py-3.5 border border-slate-200 rounded-2xl text-base focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold">
+      </div>
+
+      <div class="col-span-12 grid grid-cols-2 gap-6">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">SKU / Barcode</label>
+          <input type="text" [(ngModel)]="currentProduct.sku" placeholder="Scan Barcode / SKU..."
+                 class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Artikel</label>
+          <input type="text" [(ngModel)]="currentProduct.artikel" placeholder="Kode Artikel..."
+                 class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all">
+        </div>
+      </div>
+
+      <!-- UOM Row (Clean version) -->
+      <div class="col-span-12 bg-slate-50/50 p-6 rounded-3xl border border-slate-100">
+        <div class="grid grid-cols-3 gap-6">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">UOM Kecil</label>
+            <select [(ngModel)]="currentProduct.uomSmall"
+                    class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all appearance-none cursor-pointer text-indigo-600 font-bold">
+              <option value="">Pilih UOM Kecil</option>
+              <option *ngFor="let u of uomOptions" [value]="u.code">{{ u.code }} - {{ u.name }}</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1.5 text-center">
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ratio (Isi)</label>
+            <input type="number" [(ngModel)]="currentProduct.qtyRatio"
+                   class="w-full px-4 py-3 border border-indigo-200 text-indigo-700 font-black rounded-2xl text-center text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all">
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">UOM Besar</label>
+            <select [(ngModel)]="currentProduct.uomBig"
+                    class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all appearance-none cursor-pointer text-indigo-600 font-bold">
+              <option value="">Pilih UOM Besar</option>
+              <option *ngFor="let u of uomOptions" [value]="u.code">{{ u.code }} - {{ u.name }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selling Price & Status -->
+      <div class="col-span-12 grid grid-cols-2 gap-8 items-end pt-4">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Selling Price</label>
+          <div class="relative">
+            <span class="absolute left-4 top-3.5 text-slate-400 text-sm font-bold">Rp</span>
+            <input type="number" [(ngModel)]="currentProduct.price" placeholder="0"
+                   class="w-full pl-12 pr-6 py-4 border border-slate-200 rounded-2xl text-lg text-right focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-black text-emerald-600 shadow-sm shadow-emerald-50">
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Product Status</label>
+          <div class="flex gap-2 p-1.5 bg-slate-100 rounded-2xl">
+            <button (click)="currentProduct.status = 'Active'"
+                    [class]="currentProduct.status === 'Active' ? 'flex-1 py-3 bg-white shadow-sm rounded-xl text-xs font-black text-emerald-600 transition-all' : 'flex-1 py-3 text-xs font-bold text-slate-400 hover:text-slate-600 transition-all'">
+              Active
+            </button>
+            <button (click)="currentProduct.status = 'Inactive'"
+                    [class]="currentProduct.status === 'Inactive' ? 'flex-1 py-3 bg-white shadow-sm rounded-xl text-xs font-black text-rose-600 transition-all' : 'flex-1 py-3 text-xs font-bold text-slate-400 hover:text-slate-600 transition-all'">
+              Inactive
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

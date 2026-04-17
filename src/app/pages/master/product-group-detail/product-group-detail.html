@@ -1,0 +1,40 @@
+<div class="h-full space-y-4">
+  <div class="flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-800 tracking-tight">{{ isEdit ? 'Edit Group Produk' : 'Tambah Group Baru' }}</h1>
+      <p class="text-sm text-slate-500">Konfigurasi kategori utama barang</p>
+    </div>
+    <button (click)="onBack()" class="px-5 py-2 border border-slate-200 text-slate-600 rounded-2xl text-sm font-semibold hover:bg-slate-50 transition-all">
+      Batal
+    </button>
+  </div>
+
+  <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100 max-w-2xl mx-auto w-full">
+    <div class="space-y-6">
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Group Code</label>
+          <input type="text" [(ngModel)]="current.code" placeholder="misal: FNB"
+                 class="w-full px-5 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-mono font-bold">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Group Name</label>
+          <input type="text" [(ngModel)]="current.name" placeholder="misal: Food & Beverage"
+                 class="w-full px-5 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold">
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Description</label>
+        <textarea [(ngModel)]="current.description" placeholder="Penjelasan singkat group..." rows="3"
+                  class="w-full px-5 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all"></textarea>
+      </div>
+
+      <div class="pt-8 border-t border-slate-50">
+        <button (click)="onSave()" class="w-full py-4 bg-indigo-600 text-white rounded-2xl font-black text-sm tracking-widest shadow-xl shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition-all uppercase">
+          Simpan Group
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

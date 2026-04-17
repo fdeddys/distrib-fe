@@ -1,0 +1,59 @@
+<div class="h-full space-y-4">
+  <div class="flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-slate-800">{{ isEdit ? 'Edit Customer' : 'Tambah Customer Baru' }}</h1>
+    <button (click)="onBack()" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-semibold hover:bg-slate-200 transition-all">
+      Batal
+    </button>
+  </div>
+
+  <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100 max-w-3xl mx-auto w-full">
+    <div class="space-y-6">
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Customer Code</label>
+          <input type="text" [(ngModel)]="current.code" readonly class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-mono font-bold text-slate-400 outline-none">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Customer Name</label>
+          <input type="text" [(ngModel)]="current.name" placeholder="Nama lengkap pelanggan..." class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold">
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Address</label>
+        <textarea [(ngModel)]="current.address" rows="2" placeholder="Alamat lengkap..." class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all"></textarea>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Phone</label>
+          <input type="text" [(ngModel)]="current.phone" placeholder="08xxxxxxxx" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Email</label>
+          <input type="email" [(ngModel)]="current.email" placeholder="mail@example.com" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 outline-none transition-all">
+        </div>
+      </div>
+
+      <!-- Credit Eligibility Section -->
+      <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 flex items-center justify-between">
+        <div>
+          <h4 class="text-sm font-bold text-slate-800">Credit Eligibility</h4>
+          <p class="text-[10px] text-slate-500">Centang jika pelanggan ini diizinkan untuk melakukan transaksi hutang/kredit.</p>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" [(ngModel)]="current.isCredit" class="sr-only peer">
+          <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+        </label>
+      </div>
+
+      <div class="flex justify-between items-center pt-6 border-t border-slate-50">
+        <div class="flex gap-2">
+           <button (click)="current.active = true" [class]="current.active ? 'px-4 py-2 bg-emerald-50 text-emerald-600 rounded-xl text-[10px] font-black' : 'px-4 py-2 text-slate-400 text-[10px] font-bold'">ACTIVE</button>
+           <button (click)="current.active = false" [class]="!current.active ? 'px-4 py-2 bg-rose-50 text-rose-600 rounded-xl text-[10px] font-black' : 'px-4 py-2 text-slate-400 text-[10px] font-bold'">INACTIVE</button>
+        </div>
+        <button (click)="onSave()" class="px-10 py-3.5 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all uppercase tracking-widest text-xs">Simpan Customer</button>
+      </div>
+    </div>
+  </div>
+</div>
