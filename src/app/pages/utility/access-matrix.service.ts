@@ -11,7 +11,7 @@ export interface AccessMapping {
 })
 export class AccessMatrixService {
   private mappings: AccessMapping[] = [
-    { role: 'Admin', menus: ['dashboard', 'product_group', 'product', 'supplier', 'customer', 'sales', 'po', 'order', 'report_master', 'report_sales', 'report_purchase', 'report_daily', 'users', 'matrix', 'config-list'] },
+    { role: 'Admin', menus: ['dashboard', 'warehouse', 'product_group', 'product', 'supplier', 'customer', 'sales', 'po', 'order', 'report_master', 'report_sales', 'report_purchase', 'report_daily', 'users', 'matrix', 'config-list'] },
     { role: 'Pharmacist', menus: ['dashboard', 'product', 'order', 'report_master', 'report_sales'] },
     { role: 'Purchase', menus: ['dashboard', 'po', 'report_purchase'] },
     { role: 'Cashier', menus: ['dashboard', 'report_daily'] }

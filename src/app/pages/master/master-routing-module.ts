@@ -10,8 +10,18 @@ import { ProductGroupListComponent } from './product-group-list/product-group-li
 import { ProductGroupDetailComponent } from './product-group-detail/product-group-detail';
 import { CustomerListComponent } from './customer-list/customer-list';
 import { CustomerDetailComponent } from './customer-detail/customer-detail';
+import { WarehouseListComponent } from './warehouse-list/warehouse-list';
+import { WarehouseDetailComponent } from './warehouse-detail/warehouse-detail';
 
 const routes: Routes = [
+  { 
+    path: 'warehouse', 
+    children: [
+      { path: '', component: WarehouseListComponent },
+      { path: 'new', component: WarehouseDetailComponent },
+      { path: 'edit/:id', component: WarehouseDetailComponent }
+    ]
+  },
   { 
     path: 'customer', 
     children: [

@@ -45,6 +45,7 @@ export class Sidebar implements OnInit {
         icon: 'database',
         isOpen: false,
         subMenus: [
+          { code: 'warehouse', name: 'Warehouse', icon: 'dot', route: '/master/warehouse' },
           { code: 'product_group', name: 'Group Product', icon: 'dot', route: '/master/group' },
           { code: 'product', name: 'Product', icon: 'dot', route: '/master/product' },
           { code: 'supplier', name: 'Supplier', icon: 'dot', route: '/master/supplier' },

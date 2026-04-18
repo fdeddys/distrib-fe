@@ -21,7 +21,10 @@ const routes: Routes = [
         path: 'utility', 
         loadChildren: () => import('../pages/utility/utility-module').then(m => m.UtilityModule) 
       },
-      { path: 'transaksi/:any', component: ComingSoon },
+      { 
+        path: 'transaksi', 
+        loadChildren: () => import('../pages/transaction/transaction-module').then(m => m.TransactionModule) 
+      },
       { path: 'report/:any', component: ComingSoon }
     ]
   }

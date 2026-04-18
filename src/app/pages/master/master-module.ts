@@ -11,6 +11,8 @@ import { ProductGroupListComponent } from './product-group-list/product-group-li
 import { ProductGroupDetailComponent } from './product-group-detail/product-group-detail';
 import { CustomerListComponent } from './customer-list/customer-list';
 import { CustomerDetailComponent } from './customer-detail/customer-detail';
+import { WarehouseListComponent } from './warehouse-list/warehouse-list';
+import { WarehouseDetailComponent } from './warehouse-detail/warehouse-detail';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -24,7 +26,9 @@ import { FormsModule } from '@angular/forms';
     ProductGroupListComponent,
     ProductGroupDetailComponent,
     CustomerListComponent,
-    CustomerDetailComponent
+    CustomerDetailComponent,
+    WarehouseListComponent,
+    WarehouseDetailComponent
   ],
   imports: [
     CommonModule,
